@@ -20,11 +20,12 @@ def image_create(request):
             )
 
             return redirect(new_image.get_absolute_url())
-        else:
-            form = ImageCreatedForm(daia=request.GET)
-        return render(
-            request,
-            'images/image/create.html',
+    else:
+        form = ImageCreatedForm(data=request.GET)
+            
+    return render(
+        request,
+        'images/image/create.html',
             {
                 'section': 'images',
                 'form': form

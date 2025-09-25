@@ -28,7 +28,7 @@ class ImageCreatedForm(forms.ModelForm):
         image_url = self.cleaned_data['url']
         name = slugify(image.title)
         extension = image_url.rsplit('.', 1)[1].lower()
-        image_name = f'{name}{extension}'
+        image_name = f'{name}.{extension}'
 
         response = requests.get(image_url)
         image.image.save(
