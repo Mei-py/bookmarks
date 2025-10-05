@@ -25,8 +25,11 @@ class ImageCreatedForm(forms.ModelForm):
              force_update=False,
              commit=True):
         image = super().save(commit=False)
+
         image_url = self.cleaned_data['url']
         name = slugify(image.title)
+        print(type(name))
+        print('name' ,name)
         extension = image_url.rsplit('.', 1)[1].lower()
         image_name = f'{name}.{extension}'
 
