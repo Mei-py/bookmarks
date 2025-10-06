@@ -3,6 +3,7 @@ from django.utils.text import slugify
 import requests
 from django import forms
 from .models import Images
+from unidecode import unidecode
 
 class ImageCreatedForm(forms.ModelForm):
     class Meta:
@@ -27,11 +28,12 @@ class ImageCreatedForm(forms.ModelForm):
         image = super().save(commit=False)
 
         image_url = self.cleaned_data['url']
-        name = slugify(image.title)
-        print(type(name))
-        print('name' ,name)
+        translit_title = unidecode(image.title)
+        name = slugify(translit_title)
+        
         extension = image_url.rsplit('.', 1)[1].lower()
         image_name = f'{name}.{extension}'
+        
 
         response = requests.get(image_url)
         image.image.save(
